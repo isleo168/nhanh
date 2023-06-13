@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	<title>DV388-PAY</title>
+
+	<script src="jquery.min.js"></script>
+	<script src="qrcode.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<img src="img/vietqr api - payment kit.png" alt="">
+		</header>
+		<main>
+			<div id="qrcode" class="qr-container disabled">
+			</div>
+			<div class="bank-account">
+				<div style="color: rgb(12, 224, 118);">QUÉT MÃ QR HOẶC</b></div>
+				<div style="color: rgb(12, 224, 118);">CHUYỂN KHOẢN TỚI TÀI KHOẢN SAU</b></div><BR>
+				<img src="img/TCB.png" alt=""><br>
+				<hr style="width: 300px;">Số tài khoản : 
+				<div id="content">19035696258030</div>
+<button class="copy-button" onclick="showCopyMenu()">Sao chép số tài khoản</button>
+
+<script>
+	function showCopyMenu() {
+		var contentElement = document.getElementById("content");
+		var textContent = contentElement.textContent || contentElement.innerText;
+
+		var input = document.createElement('input');
+		input.style.position = 'fixed';
+		input.style.opacity = '0';
+		input.value = textContent;
+		document.body.appendChild(input);
+		input.focus();
+		input.select();
+
+		var result = document.execCommand('copy');
+
+		document.body.removeChild(input);
+
+		if (result) {
+			alert("Đã sao chép thành công: " + textContent);
+		} else {
+			console.error("Sao chép thất bại");
+		}
+	}
+</script>
+				<div>Chủ TK: LE THI THUY</div>
+				<div>Chuyển số tiền bạn muốn nạp</div>
+				<hr style="width: 300px;">
+				<div style="color: crimson;">Nội dung ck : <b>TÊN TÀI KHOẢN DV388</b></div>
+			</div>
+			<br>			
+			<div id="countNumber" class="countNumber"></div>
+			<br>
+			<div id="successful" class="successful"></div>
+			<div id="fail" class="fail"></div>
+		</main>
+		<script>
+			var qrcode = new QRCode("qrcode", "00020101021238580010A000000727012800069704070114190356962580300208QRIBFTTA53037045802VN63047F00");
+			const duration = 1000; // milliseconds
+			const countDownElement = document.getElementById('countNumber');
+			let count = 600; // total seconds
+	
+			const timer = setInterval(() => {
+				const minutes = Math.floor(count / 60);
+				const seconds = count % 60;
+	
+				const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+				countDownElement.innerHTML = formattedTime;
+	
+				count--;
+	
+				if (count < 0) {
+            		clearInterval(timer);
+            		countDownElement.innerHTML = "vui lòng tạo lệnh nạp mới.";
+        		}
+			}, duration);
+		</script>
+	</div>
+</body>
+<style>
+	.copy-button {
+		background-color: #4CAF50; /* Màu xanh lá */
+		border: none;
+		color: white;
+		padding: 10px 20px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+		border-radius: 25px; /* Bóng tròn */
+	}
+
+	.hidden-content {
+		display: none;
+	}
+</style>
+</html>
